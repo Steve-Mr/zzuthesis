@@ -173,7 +173,7 @@
 \newcommand{\zzu@ckeywords@title}{关键词：}
 \newcommand{\zzu@ekeywords@title}{Key words:\enskip}
 \newcommand{\zzu@denotation@name}{主要符号对照表}
-\newcommand{\zzu@ackname}{致\hspace{\ccwd} 谢}
+\newcommand{\zzu@ackname}{致谢}
 \newcommand{\zzu@review@title}{综述}
 \ifzzu@bachelor
   \newcommand{\zzu@resume@title}{在学期间参加课题的研究成果}
