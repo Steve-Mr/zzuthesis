@@ -104,7 +104,8 @@
   \pagenumbering{arabic}}
 \renewcommand\backmatter{%
   \ifzzu@doctor\cleardoublepage\else\clearpage\fi
-  \ctexset{chapter/format+=\centering}
+  \ctexset{chapter/format+={\ifzzu@bachelor\centering%本科居中
+  \else\raggedright\fi}}%顶左
   \@mainmattertrue}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 中文配置
