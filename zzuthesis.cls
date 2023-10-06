@@ -43,7 +43,7 @@
 \ifzzu@doctor%博士论文双面打印
   \LoadClass[zihao=-4,a4paper,UTF8,scheme=plain]{ctexbook}
 \else%其它单面打印
-  \LoadClass[zihao=-4,a4paper,UTF8,scheme=plain,openany]{ctexbook}
+  \LoadClass[zihao=-4,a4paper,UTF8,scheme=plain,openany,fontset=windows]{ctexbook}
 \fi
 \RequirePackage{ifxetex}
 \ifxetex\else
@@ -83,6 +83,10 @@
     plainpages=false,
     hidelinks}
   \urlstyle{same}%相同字体
+  \usepackage{fontspec}
+
+  % 设置英文字体为 Times New Roman
+  \setmainfont{Times New Roman}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 文前，正文，文后格式
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
