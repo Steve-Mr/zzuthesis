@@ -141,14 +141,14 @@
   \def\zzu@id@title{学号或申请号}
   \def\zzu@secretlevel@title{密级}
   \ifzzu@master
-    \def\zzu@subtitle{硕士学位论文}
+  \def\zzu@subtitle{专业硕士学位论文}
   \else
     \def\zzu@subtitle{博士学位论文}
   \fi
   \def\zzu@author@title{作者姓名}
   \def\zzu@supervisor@title{导师姓名}
   \def\zzu@subject@title{学科门类}
-  \def\zzu@major@title{专业名称}
+  \def\zzu@major@title{专业学位名称}
   \ifzzu@master
     \def\zzu@department@title{培养院系}
   \else\fi
@@ -499,6 +499,7 @@
        \or December\fi\unskip,\ \ \the\year}
 \newcommand\zzu@underline[2][6em]{%
   \hskip\p@\underline{\hb@xt@ #1{\hss#2\hss}}\hskip3\p@}
+\newcommand\zzu@nounderline[2][6em]{ #2 }
 \newlength{\zzu@title@width}
 \def\zzu@put@title#1{\makebox{\hb@xt@\zzu@title@width{#1}}}
 \newcommand{\zzu@first@titlepage}{%论文中文封面
@@ -578,34 +579,34 @@
       \begin{center}
         {\includegraphics{zzu}}
         \par\vskip.6cm
-        {\ziju{0.5}\xiaochu\sffamily\zzu@subtitle}
+        {\xiaochu\sffamily\zzu@subtitle}
         \vskip \stretch{1}
         \kaishu\erhao[1.5] \zzu@ctitle
         \vskip \stretch{1}
-        \setlength{\zzu@title@width}{4\ccwd}
+        \setlength{\zzu@title@width}{5\ccwd}
         \kaishu\sanhao[1.25]
         \def\tabcolsep{\p@}%\tabcolsep：tabular环境中两列标准间隔的一半
         \def\arraystretch{1.5}%\arraystretch表格行距的缩放比例因子（缺省为1）
-        \begin{tabular}{p{\zzu@title@width}l@{}l}
+        \begin{tabular}{p{\zzu@title@width}l l}
           \zzu@put@title{\zzu@author@title} &  \zzu@title@sep & 
-            \zzu@underline[150pt]{\zzu@cauthor}
+            \zzu@nounderline[150pt]{\zzu@cauthor}
         \\
           \zzu@put@title{\zzu@supervisor@title} &  \zzu@title@sep & 
-            \zzu@underline[150pt]{\zzu@csupervisor\hspace{\ccwd}\zzu@protitle}
-        \\ 
-          \zzu@put@title{\zzu@subject@title} &  \zzu@title@sep & 
-            \zzu@underline[150pt]{\zzu@csubject}
+            \zzu@nounderline[150pt]{\zzu@csupervisor\hspace{\ccwd}\zzu@protitle}
+        % \\ 
+        %   \zzu@put@title{\zzu@subject@title} &  \zzu@title@sep & 
+        %     \zzu@nounderline[150pt]{\zzu@csubject}
         \\
           \zzu@put@title{\zzu@major@title} &  \zzu@title@sep & 
-            \zzu@underline[150pt]{\zzu@cmajor}
+            \zzu@nounderline[150pt]{\zzu@cmajor}
         \\
         \ifzzu@doctor\else
           \zzu@put@title{\zzu@department@title} &  \zzu@title@sep & 
-            \zzu@underline[150pt]{\zzu@cdepartment}
+            \zzu@nounderline[150pt]{\zzu@cdepartment}
         \\
         \fi
           \zzu@put@title{\zzu@cdate@title} &  \zzu@title@sep & 
-            \zzu@underline[150pt]{\zzu@cdate}
+            \zzu@nounderline[150pt]{\zzu@cdate}
         \end{tabular}\\
         \vskip \stretch{1}
       \end{center}
