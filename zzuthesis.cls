@@ -111,7 +111,7 @@
 %% 中文配置
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \ctexset{%
-  contentsname={目\hspace{\ccwd} 录},
+  contentsname={目录},
   listfigurename={插图清单},
   listtablename={表格清单},
   figurename={图},
