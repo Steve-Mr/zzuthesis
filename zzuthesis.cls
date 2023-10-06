@@ -441,11 +441,11 @@
   \@starttoc{toc}\normalsize}
 \renewcommand\listoffigures{%本科无图和附表清单
   \ifzzu@bachelor\relax\else
-  \zzu@chapter*[]{\listfigurename}
+  \zzu@chapter*{\listfigurename}
   \@starttoc{lof}\fi}
 \renewcommand\listoftables{%
   \ifzzu@bachelor\relax\else
-  \zzu@chapter*[]{\listtablename}
+  \zzu@chapter*{\listtablename}
   \@starttoc{lot}\fi}
 \titlecontents{chapter}[\z@]{\vspace{6bp}\sihao[1]}
   {{\thecontentslabel}\quad}{}
