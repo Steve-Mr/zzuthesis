@@ -166,7 +166,7 @@
     \or\def\CJK@today{\CJK@todaysmall}
     \or\def\CJK@today{\CJK@todaybig}
   \fi}
-\newcommand{\cabstractname}{摘\hspace{\ccwd} 要}
+\newcommand{\cabstractname}{摘要}
 \newcommand{\eabstractname}{Abstract}
 \def\zzu@ckeywords@separator{；}
 \def\zzu@ekeywords@separator{; }
@@ -751,7 +751,7 @@
   \zzu@cabstract
   \vskip12bp
   \zzu@put@keywords{\textbf\zzu@ckeywords@title}{\zzu@ckeywords}
-  \zzu@chapter*[]{\eabstractname} % no tocline
+  \zzu@chapter*[]{\textbf{\eabstractname}} % no tocline
   \zzu@eabstract
   \vskip12bp
   \zzu@put@keywords{%
