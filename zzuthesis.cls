@@ -43,7 +43,7 @@
 \ifzzu@doctor%博士论文双面打印
   \LoadClass[zihao=-4,a4paper,UTF8,scheme=plain]{ctexbook}
 \else%其它单面打印
-  \LoadClass[zihao=-4,a4paper,UTF8,scheme=plain,openany,fontset=windows]{ctexbook}
+  \LoadClass[zihao=-4,a4paper,UTF8,scheme=plain,openany,AutoFakeBold,fontset=windows]{ctexbook}
 \fi
 \RequirePackage{ifxetex}
 \ifxetex\else
@@ -87,6 +87,8 @@
 
   % 设置英文字体为 Times New Roman
   \setmainfont{Times New Roman}
+  \setsansfont{Arial}
+  \setCJKmainfont{SimSun}[AutoFakeBold] 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 文前，正文，文后格式
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -750,7 +752,7 @@
   \pagenumbering{Roman}
   \zzu@cabstract
   \vskip12bp
-  \zzu@put@keywords{\textbf\zzu@ckeywords@title}{\zzu@ckeywords}
+  \zzu@put@keywords{\textbf{\zzu@ckeywords@title}}{\zzu@ckeywords}
   \zzu@@@chapter[\eabstractname]{\textbf{\eabstractname}}[\eabstractname] % no tocline
   \zzu@eabstract
   \vskip12bp
