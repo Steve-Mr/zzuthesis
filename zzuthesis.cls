@@ -437,7 +437,7 @@
 \setcounter{secnumdepth}{3}%章节编号深度：4
 \setcounter{tocdepth}{2}%目录深度：2
 \renewcommand\tableofcontents{%
-  \zzu@chapter*[]{\contentsname}
+  \zzu@@@chapter[\contentsname]{\textbf{\contentsname}}[\contentsname]
   \@starttoc{toc}\normalsize}
 \renewcommand\listoffigures{%本科无图和附表清单
   \ifzzu@bachelor\relax\else
@@ -745,13 +745,13 @@
   \endgroup}
 \newcommand{\zzu@makeabstract}{%
   \ifzzu@doctor\cleardoublepage\else\clearpage\fi
-  \zzu@chapter*[]{\cabstractname} % no tocline
+  \zzu@@@chapter[\cabstractname]{\textbf{\cabstractname}}[\cabstractname] % no tocline
   \pagestyle{zzu@headings}
   \pagenumbering{Roman}
   \zzu@cabstract
   \vskip12bp
   \zzu@put@keywords{\textbf\zzu@ckeywords@title}{\zzu@ckeywords}
-  \zzu@chapter*[]{\textbf{\eabstractname}} % no tocline
+  \zzu@@@chapter[\eabstractname]{\textbf{\eabstractname}}[\eabstractname] % no tocline
   \zzu@eabstract
   \vskip12bp
   \zzu@put@keywords{%
