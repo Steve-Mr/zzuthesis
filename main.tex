@@ -55,6 +55,12 @@
 % \fi
 % \makeatother
 
+\makeatletter%个人简历
+\ifzzu@bachelor\else
+  \include{data/resume}%本科论文无要求
+\fi
+\makeatother
+
 \makeatletter%致谢，研究生论文中在参考文献后，附录前
 \ifzzu@bachelor\else
   \include{data/ack}
@@ -71,12 +77,6 @@
     \input{data/app02}
     \input{data/app03}
   \end{appendix}
-\fi
-\makeatother
-
-\makeatletter%个人简历
-\ifzzu@bachelor\else
-  \include{data/resume}%本科论文无要求
 \fi
 \makeatother
 
