@@ -84,6 +84,11 @@
     hidelinks}
   \urlstyle{same}%相同字体
   \usepackage{fontspec}
+  \usepackage{float}
+  \usepackage{subcaption}
+  \usepackage{graphicx}
+  \usepackage{tabularx} 
+  \usepackage{enumitem}
 
   % 设置英文字体为 Times New Roman
   \setmainfont{Times New Roman}
@@ -274,6 +279,8 @@
 \setlist[enumerate,2]{label =  \arabic*)}
 \setlist[enumerate,3]{label =  \zzu@textcircled{\arabic*}}
 \setlist{leftmargin=*, nosep}
+\setlist[enumerate]{wide=\parindent}                     %设置列表首行缩进
+\setlist[itemize]{wide=\parindent}                           % 设置编号首行缩进
 \setlist[1]{labelindent=\parindent} % Only the level 1
 \let\zzu@footnotesize\footnotesize%脚注字体及行距
 \renewcommand\footnotesize{\zzu@footnotesize\xiaowu[1.5]}
@@ -437,7 +444,7 @@
 %% 图和附表清单：宋体10.5磅，行距16磅
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setcounter{secnumdepth}{3}%章节编号深度：4
-\setcounter{tocdepth}{2}%目录深度：2
+\setcounter{tocdepth}{3}%目录深度：2
 \renewcommand\tableofcontents{%
   \zzu@@@chapter[\contentsname]{\textbf{\contentsname}}[\contentsname]
   \@starttoc{toc}\normalsize}
@@ -456,6 +463,9 @@
   {\thecontentslabel\quad}{}
   {\hspace{.5em}\titlerule*{.}\xiaosi\contentspage}
 \titlecontents{subsection}[4\ccwd]{\vspace{6bp} \wuhao[1]}
+  {\thecontentslabel\quad}{}
+  {\hspace{.5em}\titlerule*{.}\xiaosi\contentspage}
+\titlecontents{subsubsection}[6\ccwd]{\vspace{6bp} \wuhao[1]}
   {\thecontentslabel\quad}{}
   {\hspace{.5em}\titlerule*{.}\xiaosi\contentspage}
 \titlecontents{figure}[\z@]{\wuhao[1.524]}%10.5bp，16bp
