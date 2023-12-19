@@ -148,14 +148,14 @@
   \def\zzu@id@title{学号或申请号}
   \def\zzu@secretlevel@title{密级}
   \ifzzu@master
-  \def\zzu@subtitle{专业硕士学位论文}
+  \def\zzu@subtitle{硕士学位论文}
   \else
     \def\zzu@subtitle{博士学位论文}
   \fi
   \def\zzu@author@title{作者姓名}
   \def\zzu@supervisor@title{导师姓名}
   \def\zzu@subject@title{学科门类}
-  \def\zzu@major@title{专业学位名称}
+  \def\zzu@major@title{学位名称}
   \ifzzu@master
     \def\zzu@department@title{培养院系}
   \else\fi
@@ -605,9 +605,9 @@
         \\
           \zzu@put@title{\zzu@supervisor@title} &  \zzu@title@sep & 
             \zzu@nounderline[150pt]{\zzu@csupervisor\hspace{\ccwd}\zzu@protitle}
-        % \\ 
-        %   \zzu@put@title{\zzu@subject@title} &  \zzu@title@sep & 
-        %     \zzu@nounderline[150pt]{\zzu@csubject}
+        \\ 
+          \zzu@put@title{\zzu@subject@title} &  \zzu@title@sep & 
+            \zzu@nounderline[150pt]{\zzu@csubject}
         \\
           \zzu@put@title{\zzu@major@title} &  \zzu@title@sep & 
             \zzu@nounderline[150pt]{\zzu@cmajor}
