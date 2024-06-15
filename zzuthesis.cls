@@ -89,11 +89,93 @@
   \usepackage{graphicx}
   \usepackage{tabularx} 
   \usepackage{enumitem}
+  \usepackage{rotating}
+  \usepackage{pdflscape}
+  % \usepackage[usegeometry]{typearea}
+  % \usepackage[a4paper,hcentering,vcentering,ignoreall,nomarginpar,left=32mm,top=38mm]{geometry}
+
+  \usepackage{algorithm}
+  \usepackage{algpseudocode}
+  \usepackage{varwidth}
 
   % 设置英文字体为 Times New Roman
   \setmainfont{Times New Roman}
   \setsansfont{Arial}
   \setCJKmainfont{SimSun}[AutoFakeBold] 
+
+  \usepackage{listings}
+  \lstdefinestyle{yamlstyle}{
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    xleftmargin=.25in
+}
+
+\makeatletter
+\renewcommand{\thealgorithm}{\thechapter.\arabic{algorithm}} % 如果使用章节编号
+% 如果不使用章节编号，可以直接使用下面的代码
+% \renewcommand{\thealgorithm}{\arabic{algorithm}}
+\makeatother
+\floatname{algorithm}{算法}
+\renewcommand{\algorithmicrequire}{\textbf{输入:}}
+\renewcommand{\algorithmicensure}{\textbf{输出:}}
+\renewcommand{\Require}{\item[\algorithmicrequire]}
+\renewcommand{\Ensure}{\item[\algorithmicensure]}
+
+\newcommand\jsonkey{\color{purple}}
+\newcommand\jsonvalue{\color{cyan}}
+\newcommand\jsonnumber{\color{orange}}
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+% switch used as state variable
+\makeatletter
+\newif\ifisvalue@json
+
+\lstdefinelanguage{json}{
+    tabsize             = 4,
+    showstringspaces    = false,
+    keywords            = {false,true},
+    alsoletter          = 0123456789.,
+    morestring          = [s]{"}{"},
+    stringstyle         = \jsonkey\ifisvalue@json\jsonvalue\fi,
+    MoreSelectCharTable = \lst@DefSaveDef{`:}\colon@json{\enterMode@json},
+    MoreSelectCharTable = \lst@DefSaveDef{`,}\comma@json{\exitMode@json{\comma@json}},
+    MoreSelectCharTable = \lst@DefSaveDef{`\{}\bracket@json{\exitMode@json{\bracket@json}},
+    basicstyle          = \ttfamily\footnotesize
+}
+
+\newcommand{\cndash}{\rule{0.2em}{0pt}\rule[0.35em]{1.6em}{0.05em}\rule{0.2em}{0pt}}
+
+% enter "value" mode after encountering a colon
+\newcommand\enterMode@json{%
+    \colon@json%
+    \ifnum\lst@mode=\lst@Pmode%
+        \global\isvalue@jsontrue%
+    \fi
+}
+
+% leave "value" mode: either we hit a comma, or the value is a nested object
+\newcommand\exitMode@json[1]{#1\global\isvalue@jsonfalse}
+
+\lst@AddToHook{Output}{%
+    \ifisvalue@json%
+        \ifnum\lst@mode=\lst@Pmode%
+            \def\lst@thestyle{\jsonnumber}%
+        \fi
+    \fi
+    %override by keyword style if a keyword is detected!
+    \lsthk@DetectKeywords% 
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 文前，正文，文后格式
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -175,8 +257,8 @@
   \fi}
 \newcommand{\cabstractname}{摘要}
 \newcommand{\eabstractname}{Abstract}
-\def\zzu@ckeywords@separator{；}
-\def\zzu@ekeywords@separator{; }
+\def\zzu@ckeywords@separator{\hspace{0.5em}}
+\def\zzu@ekeywords@separator{, }
 \newcommand{\zzu@ckeywords@title}{关键词：}
 \newcommand{\zzu@ekeywords@title}{Key words:\enskip}
 \newcommand{\zzu@denotation@name}{主要符号对照表}
@@ -275,15 +357,22 @@
 \newcommand*{\zzu@textcircled}[1]{\lower.7ex\hbox{\tikz\draw (0pt, 0pt)%
     circle (.5em) node {\makebox[1em][c]{\small #1}};}}
 \robustify{\zzu@textcircled}
-\setlist[enumerate,1]{label = (\arabic*)}
-\setlist[enumerate,2]{label =  \arabic*)}
+\setlist[enumerate,1]{label =（\arabic*）, labelsep=0pt}
+\setlist[enumerate,2]{label =  \arabic*）}
 \setlist[enumerate,3]{label =  \zzu@textcircled{\arabic*}}
 \setlist{leftmargin=*, nosep}
 \setlist[enumerate]{wide=\parindent}                     %设置列表首行缩进
-\setlist[itemize]{wide=\parindent}                           % 设置编号首行缩进
+\setlist[itemize]{wide=\parindent, label =\raisebox{-0.3\height}{\scalebox{1.5}{\textbullet}}, labelsep = 0.5em}                           % 设置编号首行缩进
+% \setlist[itemize]{wide=\parindent}                           % 设置编号首行缩进
 \setlist[1]{labelindent=\parindent} % Only the level 1
 \let\zzu@footnotesize\footnotesize%脚注字体及行距
 \renewcommand\footnotesize{\zzu@footnotesize\xiaowu[1.5]}
+
+\newenvironment{hwenumerate}{%
+    \enumerate[label = (\arabic*) , labelsep=0.5em]%
+}{%
+    \endenumerate%
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%    浮动对象、图片、表格、公式设置
 %% 1. 若插入的图片未指定扩展名，则在指定文件路径搜索pdf，eps，png，jpg，jpeg文件
@@ -444,7 +533,7 @@
 %% 图和附表清单：宋体10.5磅，行距16磅
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \setcounter{secnumdepth}{3}%章节编号深度：4
-\setcounter{tocdepth}{3}%目录深度：2
+\setcounter{tocdepth}{2}%目录深度：2
 \renewcommand\tableofcontents{%
   \zzu@@@chapter[\contentsname]{\textbf{\contentsname}}[\contentsname]
   \@starttoc{toc}\normalsize}
@@ -589,7 +678,7 @@
       \end{minipage}
       \vskip \stretch{1}
       \begin{center}
-        {\includegraphics{zzu}}
+        {\includegraphics{zzu-alt}}
         \par\vskip.6cm
         {\xiaochu\sffamily\zzu@subtitle}
         \vskip \stretch{1}
@@ -633,7 +722,7 @@
       \ifzzu@master
         \begin{center}
           \sanhao A thesis submitted to\\
-          {\bfseries Zhengzhou University}\\
+           Zhengzhou University\\
           for the degree of Master\\
         \end{center}
       \else
@@ -654,8 +743,8 @@
       \renewcommand{\baselinestretch}{1.5}
       \begin{center}
         \sanhao
-        By\quad{}\zzu@eauthor\par
-        Supervisor :\quad\zzu@esupervisor\par
+        By\hspace{0.5em}{}\zzu@eauthor\par
+        Supervisor:\hspace{0.5em}\zzu@esupervisor\par
         \zzu@emajor\par
         \zzu@edepartment\par
         \zzu@edate
@@ -664,39 +753,45 @@
   \end{center}}
 \newcommand{\zzu@declarename}{学位论文原创性声明}
 \newcommand{\zzu@authtitle}{学位论文使用授权声明}
-\newcommand{\zzu@authorsig}{学位论文作者：}
+\newcommand{\zzu@authorsig}{学位论文作者签名：}
+\newcommand{\zzu@tutorsig}{导师签名：}
 \newcommand{\zzu@declaretext}{\hspace{2\ccwd}
-本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究所取得的成果
-。除文中已经注明引用的内容外，本论文不包含任何其他个人或集体已经发表或撰写过的
-科研成果。对本文的研究做出重要贡献的个人和集体，均已在文中以明确方式标明。本声
-明的法律责任由本人承担。}
+本人郑重声明：所呈交的学位论文，是本人在导师的指导下，独立进行研究所取得的成果。
+除文中已经注明引用的内容外，本论文不包含任何其他个人或集体已经发表或撰写过的科研成果。
+对本文的研究作出重要贡献的个人和集体，均已在文中以明确方式标明。
+本声明的法律责任由本人承担。}
 \newcommand{\zzu@declaredate}{日\hspace{\ccwd} 期：\hspace{4\ccwd} 年\hspace{2\ccwd} 月\hspace{2\ccwd} 日}
 \newcommand{\zzu@authorization}{\hspace{2\ccwd}
-本人在导师指导下完成的论文及相关的职务作品，知识产权归属郑州大学。根据郑州大学
-有关保留、使用学位论文的规定，同意学校保留或向国家有关部门或机构送交论文的复印
-件和电子版，允许论文被查阅和借阅；本人授权郑州大学可以将本学位论文的全部或部分
-编入有关数据库进行检索，可以采用影印、缩印或其他复制手段保存论文和汇编本学位论
-文。本人离校后发表、使用学位论文或与该学位论文直接相关的学术论文或成果时，第一
-署名单位仍然为郑州大学。保密论文在解密后应遵守此规定。}
+本人完全了解郑州大学有关保留、使用学位论文的规定，
+同意学校保留或向国家有关部门或机构送交论文的复印件和电子版，允许论文被查阅和借阅；
+本人授权郑州大学可以将本学位论文的全部或部分编入有关数据库进行检索，
+可以采用影印、缩印或者其他复制手段保存论文和汇编本学位论文。
+保密论文在解密后应遵守此规定。}
 \newcommand{\zzu@authdate}{日\hspace{\ccwd} 期：\hspace{4\ccwd} 年\hspace{2\ccwd} 月\hspace{2\ccwd} 日}
 \newcommand{\zzu@authorization@mk}{%原创性声明及授权声明
   \thispagestyle{zzu@empty}
   \vspace*{\stretch{1}}
   \begin{center}
-    \sffamily\sanhao \zzu@declarename
+    \rmfamily\sanhao \textbf{\zzu@declarename}
   \end{center}
   \vskip 20pt
   \xiaosi[2]\zzu@declaretext
   \vskip 20pt
-  \zzu@authorsig\hfill\zzu@declaredate\hspace*{2\ccwd}
+  \zzu@authorsig\hfill\zzu@tutorsig\hspace*{6\ccwd}
+  \newline
+  \par
+  \hfill\zzu@declaredate\hspace*{2\ccwd}
   \vspace*{\stretch{2}}
   \begin{center}
-    \sffamily\sanhao \zzu@authtitle
+    \rmfamily\sanhao \textbf{\zzu@authtitle}
   \end{center}
   \vskip 20pt
   \xiaosi[2]\zzu@authorization
   \vskip 20pt
-  \zzu@authorsig\hfill\zzu@authdate\hspace*{2\ccwd}
+  \zzu@authorsig\hfill\zzu@tutorsig\hspace*{6\ccwd}
+  \newline
+  \par
+  \hfill\zzu@declaredate\hspace*{2\ccwd}
   \vspace*{\stretch{2}}}
 \def\zzu@setup@pdfinfo{%pdf文档信息
   \hypersetup{%
@@ -854,13 +949,28 @@
   \gdef\@chapapp{\appendixname~\thechapter}
   \renewcommand\theequation{%
     \ifnum \c@chapter>\z@ \thechapter\fi\@arabic\c@equation}
+    \captionsetup{
+      labelformat = simple,
+      format = plain
+    }
+    \renewcommand{\thetable}{\thechapter\arabic{table}}
+  
+    \renewcommand{\thefigure}{\thechapter\arabic{figure}}
   }{}
+
+  % 在附录中将表格的编号格式修改为"附录编号表格编号"的形式
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 个人简历、在学期间发表的学术论文及研究成果
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newenvironment{resume}[1][\zzu@resume@title]{%
   \zzu@chapter*{#1}\wuhao[1.524]}{}
-\newcommand{\resumeitem}[1]{\vspace{2em}{\sihao\sffamily{#1}}\vspace{.5em}\par}
+
+  \newcounter{resumeitemcounter}
+  \renewcommand{\theresumeitemcounter}{\chinese{resumeitemcounter}}
+\newcommand{\resumeitem}[1]{\vspace{2em}\noindent{\sihao\sffamily{#1}}\vspace{.5em}\par}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 延迟的代码 (Delaying code)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
